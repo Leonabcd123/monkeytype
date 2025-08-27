@@ -43,6 +43,34 @@
     }
   }
 
+  .keymapKey input {
+    display: flex;
+    background-color: var(--sub-alt-color);
+    color: var(--sub-color);
+    border-radius: 0;
+    // border: 0.05rem solid;
+    // border-color: var(--sub-color);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 1ch;
+    height: 1ch;
+    position: relative;
+  }
+  .bump {
+    width: 0.5em;
+    height: 0.1em;
+    background: var(--bg-color);
+    position: absolute;
+    border-radius: 0.1em;
+    // margin-top: 1.5rem;
+    bottom: 0.2em;
+  }
+
+  .layoutInput {
+    box-sizing: content-box;
+  }
+
   .sectionSpacer {
     height: 1.5rem;
   }
