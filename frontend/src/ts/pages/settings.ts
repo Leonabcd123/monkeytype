@@ -718,6 +718,13 @@ async function fillSettingsPage(): Promise<void> {
 
 // export let settingsFillPromise = fillSettingsPage();
 
+const submitButton = document.getElementById("layoutCreatorSubmit");
+if (submitButton) {
+  submitButton.addEventListener("click", (e) => {
+    submitCustomLayout();
+  });
+}
+
 export function submitCustomLayout(): string {
   const template1 = JSON.parse(
     JSON.stringify(customLayoutTemplate)
@@ -732,6 +739,8 @@ export function submitCustomLayout(): string {
       (template1.keys[row][i] as string[]).push(value, value.toUpperCase());
     }
   }
+  console.log("**************");
+  console.log(template1);
   return JSON.stringify(template1);
 }
 
