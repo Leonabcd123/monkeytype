@@ -722,6 +722,7 @@ const submitButton = document.getElementById("layoutCreatorSubmit");
 if (submitButton) {
   submitButton.addEventListener("click", (e) => {
     submitCustomLayout();
+    Notifications.add("Added custom Layout Successfully!", 1);
   });
 }
 
