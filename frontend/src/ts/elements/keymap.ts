@@ -136,7 +136,10 @@ async function flashKey(key: string, correct?: boolean): Promise<void> {
 }
 
 export function hide(): void {
-  $("#keymap").addClass("hidden");
+  const keymap = $("#keymap");
+  if (keymap.parent().attr("data-config-name") !== "layoutCreator") {
+    keymap.addClass("hidden");
+  }
 }
 
 export function show(): void {
