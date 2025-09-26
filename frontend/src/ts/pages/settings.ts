@@ -28,7 +28,12 @@ import {
 import { getAllFunboxes, checkCompatibility } from "@monkeytype/funbox";
 import { getActiveFunboxNames } from "../test/funbox/list";
 import { SnapshotPreset } from "../constants/default-snapshot";
-import { LayoutsList } from "../constants/layouts";
+import {
+  LayoutsList,
+  customLayoutTemplate,
+  Keys,
+  Template,
+} from "../constants/layouts";
 import { DataArrayPartial, Optgroup, OptionOptional } from "slim-select/store";
 import { Theme, ThemesList } from "../constants/themes";
 import { areSortedArraysEqual, areUnsortedArraysEqual } from "../utils/arrays";
@@ -712,6 +717,23 @@ async function fillSettingsPage(): Promise<void> {
 }
 
 // export let settingsFillPromise = fillSettingsPage();
+
+export function submitCustomLayout(): string {
+  const template1 = JSON.parse(
+    JSON.stringify(customLayoutTemplate)
+  ) as Template;
+  let rows: (keyof Keys)[] = ["row2", "row3", "row4"];
+  for (let row of rows) {
+    const inputs = document.getElementsByClassName(
+      `${row}`
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    for (let i = 0; i < inputs.length; i++) {
+      const value = inputs[i]?.value ?? "";
+      (template1.keys[row][i] as string[]).push(value, value.toUpperCase());
+    }
+  }
+  return JSON.stringify(template1);
+}
 
 export function hideAccountSection(): void {
   $(`.pageSettings .section.needsAccount`).addClass("hidden");
