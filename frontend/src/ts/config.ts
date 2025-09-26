@@ -20,6 +20,7 @@ import { Config, FunboxName } from "@monkeytype/schemas/configs";
 import { Mode } from "@monkeytype/schemas/shared";
 import { Language } from "@monkeytype/schemas/languages";
 import { LocalStorageWithSchema } from "./utils/local-storage-with-schema";
+import { safeToString } from "./utils/strings";
 import { migrateConfig } from "./utils/config";
 import { getDefaultConfig } from "./constants/default-config";
 import { parseWithSchema as parseJsonWithSchema } from "@monkeytype/util/json";
@@ -178,7 +179,9 @@ export function genericSet<T extends keyof ConfigSchemas.Config>(
       const set = genericSet(targetKey, targetValue, nosave);
       if (!set) {
         throw new Error(
-          `Failed to set config key "${targetKey}" with value "${targetValue}" for ${metadata.displayString} config override.`
+          `Failed to set config key "${targetKey}" with value "${safeToString(
+            targetValue
+          )}" for ${metadata.displayString} config override.`
         );
       }
     }

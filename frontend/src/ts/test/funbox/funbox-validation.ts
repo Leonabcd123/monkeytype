@@ -142,7 +142,7 @@ export function canSetConfigWithCurrentFunboxes(
       Notifications.add(
         `You can't set ${Strings.camelCaseToWords(
           key
-        )} to ${value.toString()} with currently active funboxes.`,
+        )} to ${Strings.safeToString(value)} with currently active funboxes.`,
         0,
         {
           duration: 5,
@@ -184,7 +184,7 @@ export function canSetFunboxWithConfig(
       errorStrings.push(
         `${Strings.capitalizeFirstLetter(
           Strings.camelCaseToWords(error.key)
-        )} cannot be set to ${error.value.toString()}.`
+        )} cannot be set to ${Strings.safeToString(error.value)}.`
       );
     }
     Notifications.add(

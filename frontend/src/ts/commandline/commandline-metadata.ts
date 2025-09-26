@@ -342,6 +342,12 @@ export const commandlineConfigMetadata: CommandlineConfigMetadataObject = {
       afterExec: () => TestLogic.restart(),
     },
   },
+  layoutCreator: {
+    subgroup: {
+      options: "fromSchema",
+      afterExec: () => TestLogic.restart(),
+    },
+  },
   codeUnindentOnBackspace: {
     subgroup: {
       options: "fromSchema",

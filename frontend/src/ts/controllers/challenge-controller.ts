@@ -1,5 +1,6 @@
 import * as Misc from "../utils/misc";
 import * as JSONData from "../utils/json-data";
+import { safeToString } from "../utils/strings";
 import * as Notifications from "../elements/notifications";
 import * as ManualRestart from "../test/manual-restart-tracker";
 import * as CustomText from "../test/custom-text";
@@ -133,7 +134,9 @@ function verifyRequirement(
       const configValue = requirementValue[configKey];
       if (Config[configKey as keyof ConfigType] !== configValue) {
         requirementsMet = false;
-        failReasons.push(`${configKey} not set to ${configValue}`);
+        failReasons.push(
+          `${configKey} not set to ${safeToString(configValue)}`
+        );
       }
     }
   }

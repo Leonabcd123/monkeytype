@@ -379,6 +379,11 @@ export const configMetadata: ConfigMetadataObject = {
     displayString: "layout",
     changeRequiresRestart: true,
   },
+  layoutCreator: {
+    icon: "fa-keyboard",
+    displayString: "layoutCreator",
+    changeRequiresRestart: true,
+  },
   codeUnindentOnBackspace: {
     icon: "fa-code",
     displayString: "code unindent on backspace",

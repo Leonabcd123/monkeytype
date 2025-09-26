@@ -334,6 +334,23 @@ export type KeymapLayout = z.infer<typeof KeymapLayoutSchema>;
 export const LayoutSchema = z.literal("default").or(Layouts.LayoutNameSchema);
 export type Layout = z.infer<typeof LayoutSchema>;
 
+export const LayoutCreatorSchema = z.union([
+  z.literal("default"),
+  z.object({
+    keymapShowTopRow: z.boolean(),
+    type: z.string(),
+    keys: z.object({
+      row1: z.array(z.array(z.string())),
+      row2: z.array(z.array(z.string())),
+      row3: z.array(z.array(z.string())),
+      row4: z.array(z.array(z.string())),
+      row5: z.array(z.array(z.string())),
+    }),
+  }),
+]);
+
+export type LayoutCreator = z.infer<typeof LayoutCreatorSchema>;
+
 export const FontSizeSchema = z.number().positive();
 export type FontSize = z.infer<typeof FontSizeSchema>;
 
@@ -398,6 +415,7 @@ export const ConfigSchema = z
     hideExtraLetters: z.boolean(),
     lazyMode: z.boolean(),
     layout: LayoutSchema,
+    layoutCreator: LayoutCreatorSchema,
     codeUnindentOnBackspace: z.boolean(),
 
     // sound
@@ -533,6 +551,7 @@ export const ConfigGroupsLiteral = {
   hideExtraLetters: "input",
   lazyMode: "input",
   layout: "input",
+  layoutCreator: "input",
   codeUnindentOnBackspace: "input",
 
   //sound

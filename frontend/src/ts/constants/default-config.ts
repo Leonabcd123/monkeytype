@@ -1,5 +1,31 @@
 import { Config, CustomThemeColors } from "@monkeytype/schemas/configs";
 
+const defaultLayoutCreator = {
+  keymapShowTopRow: false,
+  type: "ansi",
+  keys: {
+    row1: [
+      ["", "~"],
+      ["1", "!"],
+      ["2", "@"],
+      ["3", "#"],
+      ["4", "$"],
+      ["5", "%"],
+      ["6", "^"],
+      ["7", "&"],
+      ["8", "*"],
+      ["9", "("],
+      ["0", ")"],
+      ["-", "_"],
+      ["=", "+"],
+    ],
+    row2: [[], [], [], [], [], [], [], [], [], [], [], [], []],
+    row3: [[], [], [], [], [], [], [], [], [], [], []],
+    row4: [[], [], [], [], [], [], [], [], [], []],
+    row5: [[" "]],
+  },
+};
+
 const obj = {
   theme: "serika_dark",
   themeLight: "serika",
@@ -39,6 +65,7 @@ const obj = {
   paceCaretStyle: "default",
   flipTestColors: false,
   layout: "default",
+  layoutCreator: defaultLayoutCreator,
   funbox: [],
   confidenceMode: "off",
   indicateTypos: "off",
