@@ -334,20 +334,19 @@ export type KeymapLayout = z.infer<typeof KeymapLayoutSchema>;
 export const LayoutSchema = z.literal("default").or(Layouts.LayoutNameSchema);
 export type Layout = z.infer<typeof LayoutSchema>;
 
-export const LayoutCreatorSchema = z.union([
-  z.literal("default"),
-  z.object({
-    keymapShowTopRow: z.boolean(),
-    type: z.string(),
-    keys: z.object({
-      row1: z.array(z.array(z.string())),
-      row2: z.array(z.array(z.string())),
-      row3: z.array(z.array(z.string())),
-      row4: z.array(z.array(z.string())),
-      row5: z.array(z.array(z.string())),
-    }),
-  }),
-]);
+export const LayoutCreatorSchema = z
+  .object({
+    keys: z
+      .object({
+        row1: z.array(Layouts.charDefinitionSchema).length(13),
+        row2: z.array(Layouts.charDefinitionSchema).length(13),
+        row3: z.array(Layouts.charDefinitionSchema).length(11),
+        row4: z.array(Layouts.charDefinitionSchema).length(10),
+        row5: z.array(Layouts.row5CharDefinitionSchema).min(1).max(2),
+      })
+      .strict(),
+  })
+  .strict();
 
 export type LayoutCreator = z.infer<typeof LayoutCreatorSchema>;
 

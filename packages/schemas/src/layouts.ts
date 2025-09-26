@@ -236,8 +236,11 @@ export const LayoutNameSchema = z.enum(
 
 export type LayoutName = z.infer<typeof LayoutNameSchema>;
 
-const charDefinitionSchema = z.array(z.string().length(1)).min(1).max(4);
-const row5CharDefinitionSchema = z.array(z.string().length(1)).min(1).max(4);
+export const charDefinitionSchema = z.array(z.string().length(1)).min(1).max(4);
+export const row5CharDefinitionSchema = z
+  .array(z.string().length(1))
+  .min(1)
+  .max(4);
 
 const commonLayoutSchema = z
   .object({
