@@ -345,8 +345,8 @@ const list: Partial<Record<FunboxName, FunboxFunctions>> = {
     applyConfig(): void {
       const layout = Config.customLayoutfluid[0] ?? "qwerty";
 
-      UpdateConfig.setLayout(layout as Layout, true);
-      UpdateConfig.setKeymapLayout(layout as KeymapLayout, true);
+      UpdateConfig.setLayout(layout, true);
+      UpdateConfig.setKeymapLayout(layout, true);
     },
     rememberSettings(): void {
       save("keymapMode", Config.keymapMode, UpdateConfig.setKeymapMode);

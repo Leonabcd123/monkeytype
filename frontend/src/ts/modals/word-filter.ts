@@ -7,7 +7,7 @@ import AnimatedModal, {
   HideOptions,
   ShowOptions,
 } from "../utils/animated-modal";
-import { LayoutsList } from "../constants/layouts";
+import { getLayoutsList } from "../constants/layouts";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import { LanguageList } from "../constants/languages";
 import { Language } from "@monkeytype/schemas/languages";
@@ -112,7 +112,7 @@ async function initSelectOptions(): Promise<void> {
       `);
   });
 
-  for (const layout of LayoutsList) {
+  for (const layout of getLayoutsList()) {
     const prettyLayout = layout.replace(/_/gi, " ");
     $("#wordFilterModal .layoutInput").append(`
       <option value=${layout}>${prettyLayout}</option>

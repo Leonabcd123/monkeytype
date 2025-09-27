@@ -1,4 +1,5 @@
-import { LayoutName, LayoutNameSchema } from "@monkeytype/schemas/layouts";
+import { LayoutNameSchema, updateLayouts } from "@monkeytype/schemas/layouts";
+import Config from "../config";
 
 type Key = string[];
 type Row = Key[];
@@ -44,4 +45,11 @@ export const customLayoutTemplate: Template = {
   },
 };
 
-export const LayoutsList: LayoutName[] = LayoutNameSchema._def.values;
+export function getLayoutsList(): readonly string[] {
+  if (Config.layoutCreator.name !== null) {
+    updateLayouts(Config.layoutCreator.name);
+    return LayoutNameSchema._def.values;
+  } else {
+    return LayoutNameSchema._def.values;
+  }
+}

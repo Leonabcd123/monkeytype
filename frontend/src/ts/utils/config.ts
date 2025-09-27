@@ -136,7 +136,7 @@ function replaceLegacyValues(
   if (typeof configObj.customLayoutfluid === "string") {
     configObj.customLayoutfluid = (configObj.customLayoutfluid as string).split(
       "#"
-    ) as ConfigSchemas.CustomLayoutFluid;
+    );
   }
 
   if (typeof configObj.indicateTypos === "boolean") {

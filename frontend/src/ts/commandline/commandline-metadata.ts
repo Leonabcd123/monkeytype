@@ -266,8 +266,7 @@ export const commandlineConfigMetadata: CommandlineConfigMetadataObject = {
       defaultValue: () => {
         return Config.customLayoutfluid.join(" ");
       },
-      inputValueConvert: (val) =>
-        val.trim().split(" ") as ConfigSchemas.CustomLayoutFluid,
+      inputValueConvert: (val) => val.trim().split(" "),
     },
   },
   customPolyglot: {

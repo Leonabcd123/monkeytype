@@ -14,7 +14,7 @@ import {
   LanguageSchema,
 } from "@monkeytype/schemas/languages";
 import { Layout, ThemeName } from "@monkeytype/schemas/configs";
-import { LayoutsList } from "../src/ts/constants/layouts";
+import { getLayoutsList } from "../src/ts/constants/layouts";
 import { KnownFontName } from "@monkeytype/schemas/fonts";
 import { Fonts } from "../src/ts/constants/fonts";
 import { ThemesList } from "../src/ts/constants/themes";
@@ -109,7 +109,7 @@ async function validateLayouts(): Promise<void> {
       "Layout files present but missing in packages/schemas/src/layouts.ts",
   });
 
-  for (let layoutName of LayoutsList) {
+  for (let layoutName of getLayoutsList()) {
     let layoutData = undefined;
     if (!fs.existsSync(`./static/layouts/${layoutName}.json`)) {
       problems.add(
@@ -138,7 +138,7 @@ async function validateLayouts(): Promise<void> {
   const additionalLayoutFiles = fs
     .readdirSync("./static/layouts")
     .map((it) => it.substring(0, it.length - 5))
-    .filter((it) => !LayoutsList.some((layout) => layout === it));
+    .filter((it) => !getLayoutsList().some((layout) => layout === it));
   if (additionalLayoutFiles.length !== 0) {
     additionalLayoutFiles.forEach((it) => problems.add("_additional", it));
   }

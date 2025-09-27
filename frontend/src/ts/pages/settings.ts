@@ -30,15 +30,20 @@ import { getAllFunboxes, checkCompatibility } from "@monkeytype/funbox";
 import { getActiveFunboxNames } from "../test/funbox/list";
 import { SnapshotPreset } from "../constants/default-snapshot";
 import {
-  LayoutsList,
+  getLayoutsList,
   customLayoutTemplate,
   Keys,
   Template,
 } from "../constants/layouts";
+
 import { DataArrayPartial, Optgroup, OptionOptional } from "slim-select/store";
 import { Theme, ThemesList } from "../constants/themes";
 import { areSortedArraysEqual, areUnsortedArraysEqual } from "../utils/arrays";
-import { LayoutName } from "@monkeytype/schemas/layouts";
+import {
+  LayoutName,
+  updateLayouts,
+  LayoutNameSchema,
+} from "@monkeytype/schemas/layouts";
 import { LanguageGroupNames, LanguageGroups } from "../constants/languages";
 import { Language } from "@monkeytype/schemas/languages";
 import FileStorage from "../utils/file-storage";
@@ -505,9 +510,9 @@ async function fillSettingsPage(): Promise<void> {
     select: ".pageSettings .section[data-config-name='layout'] select",
     data: [
       { text: "off", value: "default" },
-      ...LayoutsList.filter((layout) => layout !== "korean").map(
-        layoutToOption
-      ),
+      ...getLayoutsList()
+        .filter((layout) => layout !== "korean")
+        .map(layoutToOption),
     ],
   });
 
@@ -515,7 +520,7 @@ async function fillSettingsPage(): Promise<void> {
     select: ".pageSettings .section[data-config-name='keymapLayout'] select",
     data: [
       { text: "emulator sync", value: "overrideSync" },
-      ...LayoutsList.map(layoutToOption),
+      ...getLayoutsList().map(layoutToOption),
     ],
   });
 
@@ -617,9 +622,9 @@ async function fillSettingsPage(): Promise<void> {
     settings: { keepOrder: true, minSelected: 2 },
     events: {
       afterChange: (newVal): void => {
-        const customLayoutfluid = newVal.map(
+        const customLayoutfluid: CustomLayoutFluid = newVal.map(
           (it) => it.value
-        ) as CustomLayoutFluid;
+        );
         //checking equal with order, because customLayoutfluid is ordered
         if (
           !areSortedArraysEqual(customLayoutfluid, Config.customLayoutfluid)
@@ -725,6 +730,8 @@ if (submitButton) {
     const result = submitCustomLayout();
     Config.layoutCreator = result;
     UpdateConfig.setLayoutCreator(Config.layoutCreator);
+    updateLayouts(Config.layoutCreator.name);
+    console.log(LayoutNameSchema);
     Notifications.add("Added custom Layout Successfully!", 1);
   });
 }
@@ -1187,7 +1194,7 @@ function getLayoutfluidDropdownData(): DataArrayPartial {
   const customLayoutfluidActive = Config.customLayoutfluid;
   return [
     ...customLayoutfluidActive,
-    ...LayoutsList.filter((it) => !customLayoutfluidActive.includes(it)),
+    ...getLayoutsList().filter((it) => !customLayoutfluidActive.includes(it)),
   ].map((layout) => ({
     text: layout.replace(/_/g, " "),
     value: layout,
