@@ -1,6 +1,6 @@
 import { Config, CustomThemeColors } from "@monkeytype/schemas/configs";
 
-const defaultLayoutCreator = {
+export const defaultLayoutCreator = {
   name: "qwerty",
   keymapShowTopRow: false,
   type: "ansi",

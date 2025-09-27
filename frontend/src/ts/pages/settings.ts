@@ -1,5 +1,6 @@
 import SettingsGroup from "../elements/settings/settings-group";
 import Config, * as UpdateConfig from "../config";
+import { defaultLayoutCreator } from "../constants/default-config";
 import * as Sound from "../controllers/sound-controller";
 import * as Misc from "../utils/misc";
 import * as Strings from "../utils/strings";
@@ -740,13 +741,16 @@ export function submitCustomLayout(): Template {
   }
 
   (template1.keys["row2"][12] as string[]).push("\\", "|");
-  let rows: (keyof Keys)[] = ["row2", "row3", "row4"];
+  const rows: (keyof Keys)[] = ["row2", "row3", "row4"];
   for (let row of rows) {
     const inputs = document.getElementsByClassName(
       `${row}`
     ) as HTMLCollectionOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
-      const value = inputs[i]?.value ?? "";
+      let value = inputs[i]?.value ?? "";
+      if (value === "") {
+        value = defaultLayoutCreator?.keys[row]?.[i]?.[0] ?? "";
+      }
       (template1.keys[row][i] as string[]).push(value, value.toUpperCase());
     }
   }
