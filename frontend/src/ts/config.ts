@@ -743,6 +743,13 @@ export function setLayout(
   return genericSet("layout", layout, nosave);
 }
 
+export function setLayoutCreator(
+  layoutCreator: ConfigSchemas.LayoutCreator,
+  nosave?: boolean
+): boolean {
+  return genericSet("layoutCreator", layoutCreator, nosave);
+}
+
 export function setFontSize(
   fontSize: ConfigSchemas.FontSize,
   nosave?: boolean

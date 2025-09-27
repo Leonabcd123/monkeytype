@@ -723,8 +723,7 @@ if (submitButton) {
   submitButton.addEventListener("click", (e) => {
     const result = submitCustomLayout();
     Config.layoutCreator = result;
-    console.log(Config.layoutCreator);
-    UpdateConfig.saveFullConfigToLocalStorage();
+    UpdateConfig.setLayoutCreator(Config.layoutCreator);
     Notifications.add("Added custom Layout Successfully!", 1);
   });
 }
