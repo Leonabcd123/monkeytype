@@ -336,6 +336,9 @@ export type Layout = z.infer<typeof LayoutSchema>;
 
 export const LayoutCreatorSchema = z
   .object({
+    name: z.string(),
+    keymapShowTopRow: z.boolean(),
+    type: z.string(),
     keys: z
       .object({
         row1: z.array(Layouts.charDefinitionSchema).length(13),

@@ -58,7 +58,7 @@ const saveToDatabase = debounce(1000, () => {
   configToSend = {} as Config;
 });
 
-function saveToLocalStorage(
+export function saveToLocalStorage(
   key: keyof Config,
   nosave = false,
   noDbCheck = false

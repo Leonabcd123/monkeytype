@@ -11,17 +11,19 @@ export type Keys = {
 };
 
 export type Template = {
+  name: string;
   keymapShowTopRow: boolean;
   type: string;
   keys: Keys;
 };
 
 export const customLayoutTemplate: Template = {
+  name: "default",
   keymapShowTopRow: false,
   type: "ansi",
   keys: {
     row1: [
-      ["", "~"],
+      ["`", "~"],
       ["1", "!"],
       ["2", "@"],
       ["3", "#"],

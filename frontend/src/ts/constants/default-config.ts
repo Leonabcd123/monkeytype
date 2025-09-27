@@ -1,6 +1,9 @@
 import { Config, CustomThemeColors } from "@monkeytype/schemas/configs";
 
 const defaultLayoutCreator = {
+  name: "qwerty",
+  keymapShowTopRow: false,
+  type: "ansi",
   keys: {
     row1: [
       ["`", "~"],

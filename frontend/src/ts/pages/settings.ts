@@ -721,15 +721,26 @@ async function fillSettingsPage(): Promise<void> {
 const submitButton = document.getElementById("layoutCreatorSubmit");
 if (submitButton) {
   submitButton.addEventListener("click", (e) => {
-    submitCustomLayout();
+    const result = submitCustomLayout();
+    Config.layoutCreator = result;
+    console.log(Config.layoutCreator);
+    UpdateConfig.saveFullConfigToLocalStorage();
     Notifications.add("Added custom Layout Successfully!", 1);
   });
 }
 
-export function submitCustomLayout(): string {
+export function submitCustomLayout(): Template {
   const template1 = JSON.parse(
     JSON.stringify(customLayoutTemplate)
   ) as Template;
+  const name = document.getElementById("layoutCreatorName") as HTMLInputElement;
+  if (name !== null) {
+    template1.name = name.value;
+  } else {
+    Notifications.add("Name not found", -1);
+  }
+
+  (template1.keys["row2"][12] as string[]).push("\\", "|");
   let rows: (keyof Keys)[] = ["row2", "row3", "row4"];
   for (let row of rows) {
     const inputs = document.getElementsByClassName(
@@ -740,9 +751,7 @@ export function submitCustomLayout(): string {
       (template1.keys[row][i] as string[]).push(value, value.toUpperCase());
     }
   }
-  console.log("**************");
-  console.log(template1);
-  return JSON.stringify(template1);
+  return template1;
 }
 
 export function hideAccountSection(): void {
