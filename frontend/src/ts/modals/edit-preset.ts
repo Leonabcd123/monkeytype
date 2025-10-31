@@ -25,6 +25,7 @@ import {
   ValidatedHtmlInputElement,
   validateWithIndicator,
 } from "../elements/input-validation";
+import * as PresetUtils from "../utils/preset-modals";
 
 const state = {
   presetType: "full" as PresetType,
@@ -262,10 +263,7 @@ async function apply(): Promise<void> {
     return;
   }
 
-  if (presetNameEl?.getValidationResult().status === "failed") {
-    Notifications.add("Preset name is not valid", 0);
-    return;
-  }
+  PresetUtils.checkValidPresetName(presetNameEl);
 
   hide();
 

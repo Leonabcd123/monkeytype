@@ -1,6 +1,11 @@
+import * as PresetUtils from "../utils/preset-modals";
 import { createFilterPreset } from "../elements/account/result-filters";
 import AnimatedModal, { ShowOptions } from "../utils/animated-modal";
 import * as Notifications from "../elements/notifications";
+import { PresetNameSchema } from "@monkeytype/schemas/presets";
+import { validateWithIndicator } from "../elements/input-validation";
+
+let presetNameEl = PresetUtils.presetNameEl;
 
 export function show(showOptions?: ShowOptions): void {
   void modal.show({
@@ -8,6 +13,12 @@ export function show(showOptions?: ShowOptions): void {
     focusFirstInput: true,
     beforeAnimation: async (modalEl) => {
       (modalEl.querySelector("input") as HTMLInputElement).value = "";
+      presetNameEl = validateWithIndicator(
+        document.querySelector("input") as HTMLInputElement,
+        {
+          schema: PresetNameSchema,
+        }
+      );
     },
   });
 }
@@ -24,6 +35,7 @@ function apply(): void {
     Notifications.add("Name cannot be empty", 0);
     return;
   }
+  PresetUtils.checkValidPresetName(presetNameEl);
   void createFilterPreset(name);
   hide(true);
 }
