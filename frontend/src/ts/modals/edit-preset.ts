@@ -263,7 +263,10 @@ async function apply(): Promise<void> {
     return;
   }
 
-  PresetUtils.checkValidPresetName(presetNameEl);
+  if (!PresetUtils.checkValidPresetName(presetNameEl)) {
+    Notifications.add("Preset name is not valid", 0);
+    return;
+  }
 
   hide();
 

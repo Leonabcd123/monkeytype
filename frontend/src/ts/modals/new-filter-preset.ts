@@ -35,7 +35,11 @@ function apply(): void {
     Notifications.add("Name cannot be empty", 0);
     return;
   }
-  PresetUtils.checkValidPresetName(presetNameEl);
+  if (!PresetUtils.checkValidPresetName(presetNameEl)) {
+    Notifications.add("Preset name is not valid", 0);
+    return;
+  }
+
   void createFilterPreset(name);
   hide(true);
 }
