@@ -1192,10 +1192,6 @@ export async function finish(difficultyFailed = false): Promise<void> {
         }
       }
 
-      console.log("********************8");
-      console.log(historyLength);
-      //historyLength += i - 1;
-
       const newProgress =
         CustomText.getCustomTextLongProgress(customTextName) + historyLength;
       CustomText.setCustomTextLongProgress(customTextName, newProgress);
