@@ -1181,21 +1181,20 @@ export async function finish(difficultyFailed = false): Promise<void> {
         const currentInputLength =
           Strings.splitIntoCharacters(history[i] ?? "")?.length ?? 0;
 
+        if (currentInputLength >= currentWordLength) {
+          historyLength++;
+        }
+
         if (currentInputLength <= currentWordLength) {
           historyLength += currentInputLength;
-
-          if (
-            i === history.length - 1 &&
-            currentInputLength === currentWordLength
-          ) {
-            historyLength += 1;
-          }
         } else {
           historyLength += currentWordLength;
         }
       }
 
-      historyLength += i - 1;
+      console.log("********************8");
+      console.log(historyLength);
+      //historyLength += i - 1;
 
       const newProgress =
         CustomText.getCustomTextLongProgress(customTextName) + historyLength;
