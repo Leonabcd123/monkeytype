@@ -1584,15 +1584,6 @@ ConfigEvent.subscribe(({ key, newValue, nosave }) => {
     if (Config.language.startsWith("arabic")) {
       ArabicLazyMode.set(newValue);
     }
-    if (newValue) {
-      if (!showedLazyModeNotification) {
-        rememberLazyMode = false;
-      }
-      showedLazyModeNotification = false;
-    } else {
-      rememberLazyMode = false;
-      showedLazyModeNotification = false;
-    }
   }
 });
 
