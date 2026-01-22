@@ -1,4 +1,6 @@
 import { Language } from "@monkeytype/schemas/languages";
+import { ConfigValue } from "@monkeytype/schemas/configs";
+import { isObject } from "./misc";
 
 /**
  * Removes accents from a string.
@@ -331,6 +333,14 @@ export function toHex(buffer: ArrayBuffer): string {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
   return hashHex;
+}
+
+export function stringifyConfigValue(value: ConfigValue): string {
+  if (isObject(value)) {
+    return JSON.stringify(value);
+  }
+
+  return value.toString();
 }
 
 /**

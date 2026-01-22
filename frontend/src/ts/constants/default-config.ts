@@ -39,6 +39,7 @@ const obj: Config = {
   paceCaretStyle: "default",
   flipTestColors: false,
   layout: "default",
+  customLayout: "default",
   funbox: [],
   confidenceMode: "off",
   indicateTypos: "off",

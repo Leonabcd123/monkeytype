@@ -424,6 +424,12 @@ export const configMetadata: ConfigMetadataObject = {
     changeRequiresRestart: true,
     group: "input",
   },
+  customLayout: {
+    icon: "fa-keyboard",
+    displayString: "custom layout",
+    changeRequiresRestart: true,
+    group: "input",
+  },
   codeUnindentOnBackspace: {
     icon: "fa-code",
     displayString: "code unindent on backspace",

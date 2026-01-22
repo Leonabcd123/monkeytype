@@ -352,6 +352,11 @@ export type KeymapLayout = z.infer<typeof KeymapLayoutSchema>;
 export const LayoutSchema = z.literal("default").or(Layouts.LayoutNameSchema);
 export type Layout = z.infer<typeof LayoutSchema>;
 
+export const CustomLayoutSchema = z
+  .literal("default")
+  .or(Layouts.LayoutObjectSchema);
+export type CustomLayout = z.infer<typeof CustomLayoutSchema>;
+
 export const FontSizeSchema = z.number().positive();
 export type FontSize = z.infer<typeof FontSizeSchema>;
 
@@ -417,6 +422,7 @@ export const ConfigSchema = z
     hideExtraLetters: z.boolean(),
     lazyMode: z.boolean(),
     layout: LayoutSchema,
+    customLayout: CustomLayoutSchema,
     codeUnindentOnBackspace: z.boolean(),
 
     // sound

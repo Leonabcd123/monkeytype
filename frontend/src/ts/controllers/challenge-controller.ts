@@ -1,4 +1,5 @@
 import * as Misc from "../utils/misc";
+import { stringifyConfigValue } from "../utils/strings";
 import * as JSONData from "../utils/json-data";
 import * as Notifications from "../elements/notifications";
 import * as ManualRestart from "../test/manual-restart-tracker";
@@ -12,6 +13,7 @@ import { showLoaderBar, hideLoaderBar } from "../signals/loader-bar";
 import { CustomTextLimitMode, CustomTextMode } from "@monkeytype/schemas/util";
 import {
   Config as ConfigType,
+  ConfigValue,
   Difficulty,
   ThemeName,
   FunboxName,
@@ -135,7 +137,9 @@ function verifyRequirement(
       const configValue = requirementValue[configKey];
       if (Config[configKey as keyof ConfigType] !== configValue) {
         requirementsMet = false;
-        failReasons.push(`${configKey} not set to ${configValue}`);
+        failReasons.push(
+          `${configKey} not set to ${stringifyConfigValue(configValue as unknown as ConfigValue)}`,
+        );
       }
     }
   }

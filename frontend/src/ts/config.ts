@@ -24,6 +24,7 @@ import { parseWithSchema as parseJsonWithSchema } from "@monkeytype/util/json";
 import { ZodSchema } from "zod";
 import * as TestState from "./test/test-state";
 import { ConfigMetadataObject, configMetadata } from "./config-metadata";
+import { stringifyConfigValue } from "./utils/strings";
 
 const configLS = new LocalStorageWithSchema({
   key: "config",
@@ -173,7 +174,7 @@ export function setConfig<T extends keyof Config>(
       const set = setConfig(targetKey, targetValue, options);
       if (!set) {
         throw new Error(
-          `Failed to set config key "${targetKey}" with value "${targetValue}" for ${metadata.displayString} config override.`,
+          `Failed to set config key "${targetKey}" with value "${stringifyConfigValue(targetValue)}" for ${metadata.displayString} config override.`,
         );
       }
     }
