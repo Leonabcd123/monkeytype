@@ -11,7 +11,7 @@ import {
 } from "../input-validation";
 import { ElementWithUtils, qs, qsa } from "../../utils/dom";
 
-type Mode = "select" | "button" | "range" | "input";
+type Mode = "select" | "button" | "range" | "input" | "inputs";
 
 export type SimpleValidation<T> = Omit<Validation<T>, "schema"> & {
   schema?: true;
@@ -179,6 +179,8 @@ export default class SettingsGroup<K extends ConfigKey, T = ConfigType[K]> {
       });
 
       this.elements = [el];
+    } else if (this.mode === "inputs") {
+      this.elements = qsa(".keymapKey input");
     } else {
       this.elements = [];
     }

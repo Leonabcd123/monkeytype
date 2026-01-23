@@ -193,7 +193,7 @@ async function initGroups(): Promise<void> {
   groups["smoothLineScroll"] = new SettingsGroup("smoothLineScroll", "button");
   groups["lazyMode"] = new SettingsGroup("lazyMode", "button");
   groups["layout"] = new SettingsGroup("layout", "select");
-  groups["customLayout"] = new SettingsGroup("customLayout", "input");
+  groups["customLayout"] = new SettingsGroup("customLayout", "inputs");
   groups["language"] = new SettingsGroup("language", "select");
   groups["fontSize"] = new SettingsGroup("fontSize", "input", {
     validation: { schema: true, inputValueConvert: Number },
