@@ -564,6 +564,12 @@ export const configMetadata: ConfigMetadataObject = {
     changeRequiresRestart: false,
     group: "appearance",
   },
+  typedEffect: {
+    icon: "fa-eye",
+    displayString: "typed effect",
+    changeRequiresRestart: false,
+    group: "appearance",
+  },
   tapeMode: {
     icon: "fa-tape",
     triggerResize: true,
