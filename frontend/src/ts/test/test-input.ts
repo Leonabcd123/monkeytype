@@ -408,11 +408,6 @@ export function recordKeydownTime(now: number, event: KeyboardEvent): void {
     return;
   }
 
-  if (keyDownData[key] !== undefined) {
-    console.debug("Key already down", key);
-    return;
-  }
-
   if (key === "NoCode") {
     key = "NoCode" + noCodeIndex;
     noCodeIndex++;
@@ -464,8 +459,8 @@ export function resetKeypressTimings(): void {
     return aIndex > bIndex ? a : b;
   }, "");
 
-  // oxlint-disable-next-line no-dynamic-delete
-  delete keyDownData[lastKey];
+  //get the data
+  const lastKeyData = keyDownData[lastKey];
 
   //reset
   keypressTimings = {
@@ -484,6 +479,25 @@ export function resetKeypressTimings(): void {
   };
   keyDownData = {};
   noCodeIndex = 0;
+
+  //carry over
+  if (lastKeyData !== undefined) {
+    keypressTimings = {
+      spacing: {
+        first: lastKeyData.timestamp,
+        last: lastKeyData.timestamp,
+        array: [],
+      },
+      duration: {
+        array: [0],
+      },
+    };
+    keyDownData[lastKey] = {
+      timestamp: lastKeyData.timestamp,
+      // make sure to set it to the first index
+      index: 0,
+    };
+  }
 
   console.debug("Keypress timings reset");
 }
