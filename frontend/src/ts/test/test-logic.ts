@@ -140,7 +140,6 @@ export function startTest(now: number): boolean {
   TestState.setActive(true);
   Replay.startReplayRecording();
   Replay.replayGetWordsList(TestWords.words.list);
-  TestInput.resetKeypressTimings();
   Time.set(0);
   TestTimer.clear();
 
@@ -292,6 +291,7 @@ export function restart(options = {} as RestartOptions): void {
   TestStats.restart();
   TestInput.restart();
   TestInput.corrected.reset();
+  TestInput.resetKeypressTimings();
   ShiftTracker.reset();
   AltTracker.reset();
   Caret.hide();
