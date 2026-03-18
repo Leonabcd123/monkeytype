@@ -464,8 +464,8 @@ export function resetKeypressTimings(): void {
     return aIndex > bIndex ? a : b;
   }, "");
 
-  //get the data
-  const lastKeyData = keyDownData[lastKey];
+  // oxlint-disable-next-line no-dynamic-delete
+  delete keyDownData[lastKey];
 
   //reset
   keypressTimings = {
@@ -484,25 +484,6 @@ export function resetKeypressTimings(): void {
   };
   keyDownData = {};
   noCodeIndex = 0;
-
-  //carry over
-  if (lastKeyData !== undefined) {
-    keypressTimings = {
-      spacing: {
-        first: lastKeyData.timestamp,
-        last: lastKeyData.timestamp,
-        array: [],
-      },
-      duration: {
-        array: [0],
-      },
-    };
-    keyDownData[lastKey] = {
-      timestamp: lastKeyData.timestamp,
-      // make sure to set it to the first index
-      index: 0,
-    };
-  }
 
   console.debug("Keypress timings reset");
 }
