@@ -139,8 +139,8 @@ export function startTest(now: number): boolean {
 
   TestState.setActive(true);
   Replay.startReplayRecording();
-  TestInput.resetKeypressTimings();
   Replay.replayGetWordsList(TestWords.words.list);
+  TestInput.resetKeypressTimings();
   Time.set(0);
   TestTimer.clear();
 
