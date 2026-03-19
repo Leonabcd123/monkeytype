@@ -312,13 +312,16 @@ export function forceKeyup(now: number): void {
 
   let keyIndex = 0;
   for (const [key, keyData] of orderedKeys) {
-    const keyDuration = now - keyData.timestamp;
-    keypressDurations.push(keyDuration);
+    let keyDuration;
 
-    keypressTimings.duration.array[keyData.index] =
-      keyIndex === orderedKeys.length - 1
-        ? roundTo2(mean(keypressDurations))
-        : keyDuration;
+    if (keyIndex === orderedKeys.length - 1) {
+      keyDuration = roundTo2(mean(keypressDurations));
+    } else {
+      keyDuration = now - keyData.timestamp;
+      keypressDurations.push(keyDuration);
+    }
+
+    keypressTimings.duration.array[keyData.index] = keyDuration;
 
     if (key === "NoCode") {
       noCodeIndex--;
