@@ -291,7 +291,6 @@ export function restart(options = {} as RestartOptions): void {
   TestStats.restart();
   TestInput.restart();
   TestInput.corrected.reset();
-  TestInput.resetKeypressTimings();
   ShiftTracker.reset();
   AltTracker.reset();
   Caret.hide();

@@ -517,4 +517,5 @@ export function restart(): void {
     correct: 0,
     incorrect: 0,
   };
+  resetKeypressTimings();
 }
