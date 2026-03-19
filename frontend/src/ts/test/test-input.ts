@@ -306,14 +306,19 @@ export function forceKeyup(now: number): void {
     (_, index) => !indexesToRemove.has(index),
   );
 
-  const avg = roundTo2(mean(keypressDurations));
-
   const orderedKeys = Object.entries(keyDownData).sort(
     (a, b) => a[1].timestamp - b[1].timestamp,
   );
 
-  for (const [key, { index }] of orderedKeys) {
-    keypressTimings.duration.array[index] = avg;
+  let keyIndex = 0;
+  for (const [key, keyData] of orderedKeys) {
+    const keyDuration = now - keyData.timestamp;
+    keypressDurations.push(keyDuration);
+
+    keypressTimings.duration.array[keyData.index] =
+      keyIndex === orderedKeys.length - 1
+        ? roundTo2(mean(keypressDurations))
+        : keyDuration;
 
     if (key === "NoCode") {
       noCodeIndex--;
@@ -323,6 +328,7 @@ export function forceKeyup(now: number): void {
     delete keyDownData[key];
 
     updateOverlap(now);
+    keyIndex++;
   }
 }
 
