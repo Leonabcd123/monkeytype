@@ -7,6 +7,7 @@ import { hotkeys, quickRestartHotkeyMap } from "../../states/hotkeys";
 import { createHotkey } from "./utils";
 import { getConfig } from "../../config/store";
 import { isLongTest, wordsHaveNewline, wordsHaveTab } from "../../states/test";
+import { untrack } from "solid-js";
 
 function quickRestart(e: KeyboardEvent): void {
   if (isAnyPopupVisible()) {
@@ -28,8 +29,7 @@ createHotkey(
   () => hotkeys.quickRestart,
   quickRestart,
   () => ({
-    enabled: !isLongTest() || getConfig.quickRestart !== "enter",
-    conflictBehavior: "allow",
+    enabled: untrack(() => !isLongTest() || getConfig.quickRestart !== "enter"),
   }),
 );
 
