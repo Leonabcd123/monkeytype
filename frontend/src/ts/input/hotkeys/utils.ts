@@ -1,9 +1,11 @@
 import {
   CreateHotkeyOptions,
+  CreateHotkeyDefinition,
   Hotkey,
   HotkeyCallback,
   HotkeyCallbackContext,
   createHotkey as registerHotkey,
+  createHotkeys as registerHotkeys,
 } from "@tanstack/solid-hotkeys";
 import { isAnyPopupVisible } from "../../utils/misc";
 import { isInputElementFocused } from "../input-element";
@@ -39,6 +41,26 @@ export function createHotkey(
       ...options(),
     }),
   );
+}
+
+export function createHotkeys(
+  hotkeys: CreateHotkeyDefinition[] | (() => CreateHotkeyDefinition[]),
+  commonOptions: () => Partial<
+    Omit<
+      CreateHotkeyOptions,
+      "ignoreInputs" | "stopPropagation" | "preventDefault"
+    >
+  > = () => ({}),
+): void {
+  registerHotkeys(hotkeys, () => ({
+    ignoreInputs: false, //hotkeys are active on the words input, but not on other interactive elements
+    stopPropagation: false, //we set stopPropagation in the callback if the hotkey executes
+    preventDefault: false, //we set preventDefault in the callback if the hotkey executes
+    requireReset: true,
+    conflictBehavior: "replace",
+    enabled: true,
+    ...commonOptions(),
+  }));
 }
 
 function isInteractiveElementFocused(): boolean {
