@@ -13,13 +13,13 @@ import * as CompositionState from "../../legacy-states/composition";
 
 export const NoKey = "" as Hotkey;
 
-const defaultOptions = {
+const defaultOptions: CreateHotkeyOptions = {
   ignoreInputs: false, //hotkeys are active on the words input, but not on other interactive elements
   stopPropagation: false, //we set stopPropagation in the callback if the hotkey executes
   preventDefault: false, //we set preventDefault in the callback if the hotkey executes
   requireReset: true,
   conflictBehavior: "replace",
-} satisfies CreateHotkeyOptions;
+};
 
 export function createHotkey(
   hotkey: Hotkey | (() => Hotkey),
