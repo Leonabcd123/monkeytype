@@ -21,6 +21,15 @@ const defaultOptions: CreateHotkeyOptions = {
   conflictBehavior: "replace",
 };
 
+function beforeCallback(
+  e: KeyboardEvent,
+  context: HotkeyCallbackContext,
+): void {
+  if (handleHotkeyOnInteractiveElement(e, context)) return;
+  e.stopPropagation();
+  e.preventDefault();
+}
+
 export function createHotkey(
   hotkey: Hotkey | (() => Hotkey),
   callback: HotkeyCallback,
@@ -34,9 +43,7 @@ export function createHotkey(
   registerHotkey(
     hotkey,
     (e, context) => {
-      if (handleHotkeyOnInteractiveElement(e, context)) return;
-      e.stopPropagation();
-      e.preventDefault();
+      beforeCallback(e, context);
       callback(e, context);
     },
     () => ({
@@ -56,6 +63,13 @@ export function createHotkeys(
     >
   > = () => ({}),
 ): void {
+  const resolvedHotkeys = typeof hotkeys === "function" ? hotkeys() : hotkeys;
+  resolvedHotkeys.forEach((hotkey) => {
+    hotkey.callback = function (e, context) {
+      beforeCallback(e, context);
+      hotkey.callback(e, context);
+    };
+  });
   registerHotkeys(hotkeys, () => ({
     ...defaultOptions,
     ...commonOptions(),
