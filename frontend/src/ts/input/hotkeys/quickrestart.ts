@@ -50,6 +50,8 @@ createHotkey(
         !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
         !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
     ),
+    // This is here to make sure that if this hotkey is ever ran after the primary one
+    // (say `hotkeys.quickRestart` changes and this reruns last), it won't replace it.
     conflictBehavior: "allow",
   }),
 );
