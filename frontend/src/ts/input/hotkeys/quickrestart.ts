@@ -23,7 +23,7 @@ function quickRestart(e: KeyboardEvent): void {
   }
 }
 
-// Notes:
+// Notes about the following two hotkeys:
 //
 // - The order of these hotkeys is important. If the secondary one was created after the
 // primary one, the secondary one would override the primary one when the test isn't long,
