@@ -23,6 +23,14 @@ function quickRestart(e: KeyboardEvent): void {
   }
 }
 
+// Notes:
+//
+// - The order of these hotkeys is important. If the first one came after the second one,
+// then the second one would override it when test isn't long, and make the quick restart
+// hotkey disabled.
+// - Both hotkeys should only rerun when `hotkeys.quickRestart` changes. All other signals
+// should be accessed inside an `untrack` block.
+
 // We want to have a hotkey for quick restart key without shift, so when the
 // test is considered long (which means that we can't quick restart), we show a
 // notification when the user tries to press the quick restart key without shift,
