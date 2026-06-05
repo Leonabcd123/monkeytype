@@ -19,7 +19,7 @@ const defaultOptions = {
   preventDefault: false, //we set preventDefault in the callback if the hotkey executes
   requireReset: true,
   conflictBehavior: "replace",
-} as CreateHotkeyOptions;
+} satisfies CreateHotkeyOptions;
 
 export function createHotkey(
   hotkey: Hotkey | (() => Hotkey),
