@@ -50,7 +50,6 @@ createHotkeys(() => [
   })),
 
   // Primary hotkey for quick restart.
-
   {
     hotkey: hotkeys.quickRestart,
     callback: quickRestart,
