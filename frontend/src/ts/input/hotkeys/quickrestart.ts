@@ -28,13 +28,13 @@ function quickRestart(e: KeyboardEvent): void {
 // - Both hotkeys only rerun when `hotkeys.quickRestart` changes. All other signals are
 // accessed inside an `untrack` block.
 
-// Secondary hotkey used in long tests.
-
-// We want to have a hotkey for quick restart key without shift, so when the
-// test is considered long (which means that we can't quick restart), we show a
-// notification when the user tries to press the quick restart key without shift,
-// and we'll restart when it's pressed with shift.
 createHotkeys(() => [
+  // Secondary hotkey used in long tests.
+
+  // We want to have a hotkey for quick restart key without shift, so when the
+  // test is considered long (which means that we can't quick restart), we show a
+  // notification when the user tries to press the quick restart key without shift,
+  // and we'll restart when it's pressed with shift.
   {
     hotkey: untrack(() => quickRestartHotkeyMap[getConfig.quickRestart]),
     callback: quickRestart,
@@ -47,6 +47,11 @@ createHotkeys(() => [
       ),
     },
   },
+
+  // Primary hotkey for quick restart.
+
+  // Disable quick restart when we're in a long test and quick restart key is enter, because `shift + enter, shift +
+  // enter` is already reserved for bail out keybind.
   {
     hotkey: hotkeys.quickRestart,
     callback: quickRestart,
@@ -57,8 +62,3 @@ createHotkeys(() => [
     },
   },
 ]);
-
-// Primary hotkey for quick restart.
-
-// Disable quick restart when we're in a long test and quick restart key is enter, because `shift + enter, shift +
-// enter` is already reserved for bail out keybind.
