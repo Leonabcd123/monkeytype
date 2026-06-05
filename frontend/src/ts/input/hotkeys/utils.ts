@@ -13,6 +13,14 @@ import * as CompositionState from "../../legacy-states/composition";
 
 export const NoKey = "" as Hotkey;
 
+const defaultOptions = {
+  ignoreInputs: false, //hotkeys are active on the words input, but not on other interactive elements
+  stopPropagation: false, //we set stopPropagation in the callback if the hotkey executes
+  preventDefault: false, //we set preventDefault in the callback if the hotkey executes
+  requireReset: true,
+  conflictBehavior: "replace",
+} as Partial<CreateHotkeyOptions>;
+
 export function createHotkey(
   hotkey: Hotkey | (() => Hotkey),
   callback: HotkeyCallback,
@@ -32,11 +40,7 @@ export function createHotkey(
       callback(e, context);
     },
     () => ({
-      ignoreInputs: false, //hotkeys are active on the words input, but not on other interactive elements
-      stopPropagation: false, //we set stopPropagation in the callback if the hotkey executes
-      preventDefault: false, //we set preventDefault in the callback if the hotkey executes
-      requireReset: true,
-      conflictBehavior: "replace",
+      ...defaultOptions,
       enabled: (typeof hotkey === "function" ? hotkey() : hotkey) !== NoKey,
       ...options(),
     }),
@@ -53,12 +57,7 @@ export function createHotkeys(
   > = () => ({}),
 ): void {
   registerHotkeys(hotkeys, () => ({
-    ignoreInputs: false, //hotkeys are active on the words input, but not on other interactive elements
-    stopPropagation: false, //we set stopPropagation in the callback if the hotkey executes
-    preventDefault: false, //we set preventDefault in the callback if the hotkey executes
-    requireReset: true,
-    conflictBehavior: "replace",
-    enabled: true,
+    ...defaultOptions,
     ...commonOptions(),
   }));
 }
