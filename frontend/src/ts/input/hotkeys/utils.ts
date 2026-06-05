@@ -21,13 +21,13 @@ const defaultOptions: CreateHotkeyOptions = {
   conflictBehavior: "replace",
 };
 
-function beforeCallback(
-  e: KeyboardEvent,
-  context: HotkeyCallbackContext,
-): void {
-  if (handleHotkeyOnInteractiveElement(e, context)) return;
-  e.stopPropagation();
-  e.preventDefault();
+function attachBeforeCallback(callback: HotkeyCallback): HotkeyCallback {
+  return (e, context) => {
+    if (handleHotkeyOnInteractiveElement(e, context)) return;
+    e.stopPropagation();
+    e.preventDefault();
+    callback(e, context);
+  };
 }
 
 export function createHotkey(
@@ -40,18 +40,11 @@ export function createHotkey(
     >
   > = () => ({}),
 ): void {
-  registerHotkey(
-    hotkey,
-    (e, context) => {
-      beforeCallback(e, context);
-      callback(e, context);
-    },
-    () => ({
-      ...defaultOptions,
-      enabled: (typeof hotkey === "function" ? hotkey() : hotkey) !== NoKey,
-      ...options(),
-    }),
-  );
+  registerHotkey(hotkey, attachBeforeCallback(callback), () => ({
+    ...defaultOptions,
+    enabled: (typeof hotkey === "function" ? hotkey() : hotkey) !== NoKey,
+    ...options(),
+  }));
 }
 
 export function createHotkeys(
@@ -65,10 +58,7 @@ export function createHotkeys(
 ): void {
   const resolvedHotkeys = typeof hotkeys === "function" ? hotkeys() : hotkeys;
   resolvedHotkeys.forEach((hotkey) => {
-    hotkey.callback = function (e, context) {
-      beforeCallback(e, context);
-      hotkey.callback(e, context);
-    };
+    hotkey.callback = attachBeforeCallback(hotkey.callback);
   });
   registerHotkeys(hotkeys, () => ({
     ...defaultOptions,
