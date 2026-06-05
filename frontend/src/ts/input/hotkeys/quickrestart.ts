@@ -38,18 +38,16 @@ createHotkeys(() => [
   // test is considered long (which means that we can't quick restart), we show a
   // notification when the user tries to press the quick restart key without shift,
   // and we'll restart when it's pressed with shift.
-  {
-    hotkey: untrack(() => quickRestartHotkeyMap[getConfig.quickRestart]),
+  untrack(() => ({
+    hotkey: quickRestartHotkeyMap[getConfig.quickRestart],
     callback: quickRestart,
     options: {
-      enabled: untrack(
-        () =>
-          isLongTest() &&
-          !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
-          !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
-      ),
+      enabled:
+        isLongTest() &&
+        !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
+        !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
     },
-  },
+  })),
 
   // Primary hotkey for quick restart.
 
