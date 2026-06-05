@@ -29,7 +29,6 @@ createHotkey(
   quickRestart,
   () => ({
     enabled: !isLongTest() || getConfig.quickRestart !== "enter",
-    conflictBehavior: "allow",
   }),
 );
 
@@ -38,7 +37,11 @@ createHotkey(
 // notification when the user tries to press the quick restart key without shift,
 // and we'll restart when it's pressed with shift.
 createHotkey(
-  () => quickRestartHotkeyMap[getConfig.quickRestart],
+  () => {
+    // Update hotkey when quick restart hotkey changes.
+    void hotkeys.quickRestart;
+    return quickRestartHotkeyMap[getConfig.quickRestart];
+  },
   quickRestart,
   () => ({
     enabled:
