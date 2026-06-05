@@ -60,6 +60,8 @@ export function createHotkeys(
     const resolvedHotkeys = typeof hotkeys === "function" ? hotkeys() : hotkeys;
     resolvedHotkeys.forEach((hotkey) => {
       hotkey.callback = attachBeforeCallback(hotkey.callback);
+      hotkey.options ??= {};
+      hotkey.options.enabled ??= hotkey.hotkey !== NoKey;
     });
     return resolvedHotkeys;
   };
