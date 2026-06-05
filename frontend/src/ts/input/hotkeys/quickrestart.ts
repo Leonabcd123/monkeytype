@@ -6,7 +6,7 @@ import { getActivePage } from "../../states/core";
 import { hotkeys, quickRestartHotkeyMap } from "../../states/hotkeys";
 import { createHotkeys } from "./utils";
 import { getConfig } from "../../config/store";
-//import { isLongTest, wordsHaveNewline, wordsHaveTab } from "../../states/test";
+import { isLongTest, wordsHaveNewline, wordsHaveTab } from "../../states/test";
 import { untrack } from "solid-js";
 
 function quickRestart(e: KeyboardEvent): void {
@@ -40,21 +40,23 @@ createHotkeys(() => [
   {
     hotkey: untrack(() => quickRestartHotkeyMap[getConfig.quickRestart]),
     callback: quickRestart,
-    //  options: () => ({
-    //    enabled: untrack(
-    //      () =>
-    //        isLongTest() &&
-    //        !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
-    //        !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
-    //    ),
-    //  }),
+    options: {
+      enabled: untrack(
+        () =>
+          isLongTest() &&
+          !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
+          !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
+      ),
+    },
   },
   {
     hotkey: hotkeys.quickRestart,
     callback: quickRestart,
-    //  options: () => ({
-    //    enabled: untrack(() => !isLongTest() || getConfig.quickRestart !== "enter"),
-    //  }),
+    options: {
+      enabled: untrack(
+        () => !isLongTest() || getConfig.quickRestart !== "enter",
+      ),
+    },
   },
 ]);
 
