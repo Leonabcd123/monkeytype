@@ -27,9 +27,7 @@ function quickRestart(e: KeyboardEvent): void {
 createHotkey(
   () => hotkeys.quickRestart,
   quickRestart,
-  () => ({
-    enabled: !isLongTest() || getConfig.quickRestart !== "enter",
-  }),
+  () => ({ enabled: !isLongTest() || getConfig.quickRestart !== "enter" }),
 );
 
 // We also want to have a hotkey for quick restart key without shift, so when the
