@@ -51,6 +51,7 @@ createHotkey(
         !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
         !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
     ),
+    conflictBehavior: "allow",
   }),
 );
 
