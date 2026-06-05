@@ -25,8 +25,6 @@ function quickRestart(e: KeyboardEvent): void {
 
 // Notes about the following two hotkeys:
 //
-// - The order of hotkeys in this file should be preserved, so we won't have conflicting
-// hotkeys.
 // - Both hotkeys only rerun when `hotkeys.quickRestart` changes. All other signals are
 // accessed inside an `untrack` block.
 
