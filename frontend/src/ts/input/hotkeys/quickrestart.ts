@@ -7,6 +7,7 @@ import { hotkeys, quickRestartHotkeyMap } from "../../states/hotkeys";
 import { createHotkey } from "./utils";
 import { getConfig } from "../../config/store";
 import { isLongTest, wordsHaveNewline, wordsHaveTab } from "../../states/test";
+import { untrack } from "solid-js";
 
 function quickRestart(e: KeyboardEvent): void {
   if (isAnyPopupVisible()) {
@@ -22,14 +23,6 @@ function quickRestart(e: KeyboardEvent): void {
   }
 }
 
-// Disable restart when we're in long test and quick restart key is enter, because `shift + enter, shift +
-// enter` is already reserved for bail out keybind.
-createHotkey(
-  () => hotkeys.quickRestart,
-  quickRestart,
-  () => ({ enabled: !isLongTest() || getConfig.quickRestart !== "enter" }),
-);
-
 // We also want to have a hotkey for quick restart key without shift, so when the
 // test is considered long (which means that we can't quick restart), we show a
 // notification when the user tries to press the quick restart key without shift,
@@ -38,13 +31,25 @@ createHotkey(
   () => {
     // Update hotkey when quick restart hotkey changes.
     void hotkeys.quickRestart;
-    return quickRestartHotkeyMap[getConfig.quickRestart];
+    return untrack(() => quickRestartHotkeyMap[getConfig.quickRestart]);
   },
   quickRestart,
   () => ({
-    enabled:
-      isLongTest() &&
-      !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
-      !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
+    enabled: untrack(
+      () =>
+        isLongTest() &&
+        !(wordsHaveTab() && getConfig.quickRestart === "tab") &&
+        !(wordsHaveNewline() && getConfig.quickRestart === "enter"),
+    ),
+  }),
+);
+
+// Disable restart when we're in long test and quick restart key is enter, because `shift + enter, shift +
+// enter` is already reserved for bail out keybind.
+createHotkey(
+  () => hotkeys.quickRestart,
+  quickRestart,
+  () => ({
+    enabled: untrack(() => !isLongTest() || getConfig.quickRestart !== "enter"),
   }),
 );
