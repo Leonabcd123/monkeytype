@@ -60,7 +60,7 @@ export function createHotkeys(
   resolvedHotkeys.forEach((hotkey) => {
     hotkey.callback = attachBeforeCallback(hotkey.callback);
   });
-  registerHotkeys(hotkeys, () => ({
+  registerHotkeys(resolvedHotkeys, () => ({
     ...defaultOptions,
     ...commonOptions(),
   }));
