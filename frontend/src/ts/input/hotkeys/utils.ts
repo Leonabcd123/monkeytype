@@ -56,11 +56,14 @@ export function createHotkeys(
     >
   > = () => ({}),
 ): void {
-  const resolvedHotkeys = typeof hotkeys === "function" ? hotkeys() : hotkeys;
-  resolvedHotkeys.forEach((hotkey) => {
-    hotkey.callback = attachBeforeCallback(hotkey.callback);
-  });
-  registerHotkeys(hotkeys, () => ({
+  const resolvedHotkeys = (): CreateHotkeyDefinition[] => {
+    const tempHotkeys = typeof hotkeys === "function" ? hotkeys() : hotkeys;
+    tempHotkeys.forEach((hotkey) => {
+      hotkey.callback = attachBeforeCallback(hotkey.callback);
+    });
+    return tempHotkeys;
+  };
+  registerHotkeys(resolvedHotkeys, () => ({
     ...defaultOptions,
     ...commonOptions(),
   }));
