@@ -52,8 +52,9 @@ createHotkey(
   }),
 );
 
-// Disable restart when we're in long test and quick restart key is enter, because `shift + enter, shift +
+// Disable restart when we're in a long test and quick restart key is enter, because `shift + enter, shift +
 // enter` is already reserved for bail out keybind.
+// This is the primary hotkey for quick restart.
 createHotkey(
   () => hotkeys.quickRestart,
   quickRestart,
