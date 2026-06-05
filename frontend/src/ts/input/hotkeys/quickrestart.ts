@@ -27,7 +27,7 @@ function quickRestart(e: KeyboardEvent): void {
 //
 // - The order of the hotkeys in the array passed to `createHotkeys` is important. If
 // the order was reversed, then the secondary hotkey will override the primary hotkey
-// when test isn't long, which would cause the quick restart hotkey to be disabled.
+// when the test isn't long, which would cause the quick restart hotkey to be disabled.
 // - Both hotkeys only rerun when `hotkeys.quickRestart` changes. All other signals are
 // accessed inside an `untrack` block.
 
