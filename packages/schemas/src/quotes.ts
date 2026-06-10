@@ -9,12 +9,19 @@ export const QuoteIdSchema = z
   .or(z.string().regex(/^\d+$/).transform(Number));
 export type QuoteId = z.infer<typeof QuoteIdSchema>;
 
-export const QuoteLengthSchema = z.union([
-  z.literal("short"),
-  z.literal("medium"),
-  z.literal("long"),
-  z.literal("thicc"),
-]);
+export const descToGroup = {
+  short: 0,
+  medium: 1,
+  long: 2,
+  thicc: 3,
+} as const;
+
+export const QuoteLengthKeysSchema = Object.keys(descToGroup) as [
+  keyof typeof descToGroup,
+  ...string[],
+];
+
+export const QuoteLengthSchema = z.enum(QuoteLengthKeysSchema);
 
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
 
