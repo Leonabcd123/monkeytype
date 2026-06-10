@@ -348,7 +348,9 @@ export function QuoteSearchModal(): JSXElement {
 
   createEffect(
     on(lengthFilter, (lengths) => {
-      if (lengths.includes("4") && !hasCustomFilter()) {
+      if (!lengths.includes("4")) {
+        setHasCustomFilter(false);
+      } else if (!hasCustomFilter()) {
         showSimpleModal({
           title: "Enter minimum and maximum number of words",
           buttonText: "save",
