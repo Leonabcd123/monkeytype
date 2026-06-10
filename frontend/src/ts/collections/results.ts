@@ -38,7 +38,7 @@ import {
 } from "./tags";
 import { applyIdWorkaround } from "./utils/misc";
 import { getConfig } from "../config/store";
-import { getMode2 } from "../utils/misc";
+import { getMode2, descToGroup } from "../utils/misc";
 import { getCurrentQuote } from "../states/test";
 
 export type ResultsQueryState = {
@@ -497,12 +497,7 @@ export function createResultsQueryState(
     numbers: boolFilter(filters.numbers),
     timestamp: timestampFilter(filters.date),
     quoteLength: [
-      ...valueFilter(filters.quoteLength, {
-        short: 0,
-        medium: 1,
-        long: 2,
-        thicc: 3,
-      }),
+      ...valueFilter(filters.quoteLength, descToGroup),
       -1, // fallback value for results without quoteLength, set in the collection
     ],
     tags: valueFilter(filters.tags),

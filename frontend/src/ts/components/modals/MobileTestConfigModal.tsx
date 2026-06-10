@@ -8,11 +8,11 @@ import { For, JSXElement, Show } from "solid-js";
 
 import { setConfig, setQuoteLengthAll } from "../../config/setters";
 import { getConfig } from "../../config/store";
-import { groupToDesc } from "../../controllers/quotes-controller";
 import { restartTestEvent } from "../../events/test";
 import { isAuthenticated } from "../../states/core";
 import { showModal } from "../../states/modals";
 import { areUnsortedArraysEqual } from "../../utils/arrays";
+import { groupToDesc } from "../../utils/misc";
 import { AnimatedModal } from "../common/AnimatedModal";
 import { Button } from "../common/Button";
 import { Separator } from "../common/Separator";

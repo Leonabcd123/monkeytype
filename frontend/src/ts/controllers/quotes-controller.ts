@@ -11,6 +11,7 @@ import {
   Quote as QuoteType,
   QuoteWithTextSplit as QuoteWithTextSplitType,
 } from "../types/quotes";
+import { groupToDesc } from "../utils/misc";
 
 export type Quote = QuoteType;
 export type QuoteWithTextSplit = QuoteWithTextSplitType;
@@ -27,13 +28,6 @@ const defaultQuoteCollection: QuoteCollection = {
   language: null,
   groups: [],
 };
-
-export const groupToDesc: Record<number, QuoteLength> = {
-  0: "short",
-  1: "medium",
-  2: "long",
-  3: "thicc",
-} as const;
 
 function getLengthDesc(quote: Quote): QuoteLength | "-" {
   return groupToDesc[quote.group] ?? "-";

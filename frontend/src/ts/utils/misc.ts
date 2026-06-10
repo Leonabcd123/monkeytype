@@ -7,6 +7,7 @@ import { roundTo2 } from "@monkeytype/util/numbers";
 import { animate, AnimationParams } from "animejs";
 import { ElementWithUtils } from "./dom";
 import { isDevEnvironment } from "./env";
+import { QuoteLength } from "@monkeytype/schemas/quotes";
 
 export function whorf(speed: number, wordlen: number): number {
   return Math.min(
@@ -746,5 +747,17 @@ export function getTotalInlineMargin(element: HTMLElement): number {
     parseInt(computedStyle.marginRight) + parseInt(computedStyle.marginLeft)
   );
 }
+
+export const groupToDesc: Record<number, QuoteLength> = {
+  0: "short",
+  1: "medium",
+  2: "long",
+  3: "thicc",
+} as const;
+
+export const descToGroup = Object.entries(groupToDesc).map(([key, value]) => [
+  value,
+  key,
+]) as unknown as Record<QuoteLength, number>;
 
 // DO NOT ALTER GLOBAL OBJECTSONSTRUCTOR, IT WILL BREAK RESULT HASHES
