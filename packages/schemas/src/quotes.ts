@@ -16,7 +16,12 @@ export const descToGroup = {
   thicc: 3,
 } as const;
 
-export const QuoteLengthSchema = z.nativeEnum(descToGroup);
+export const QuoteLengthKeysSchema = Object.keys(descToGroup) as [
+  keyof typeof descToGroup,
+  ...string[],
+];
+
+export const QuoteLengthSchema = z.enum(QuoteLengthKeysSchema);
 
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
 
