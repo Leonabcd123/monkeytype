@@ -8,6 +8,7 @@ import { For, JSXElement, Show } from "solid-js";
 
 import { setConfig, setQuoteLengthAll } from "../../config/setters";
 import { getConfig } from "../../config/store";
+import { groupToDesc } from "../../controllers/quotes-controller";
 import { restartTestEvent } from "../../events/test";
 import { isAuthenticated } from "../../states/core";
 import { showModal } from "../../states/modals";
@@ -26,10 +27,10 @@ const quoteLengths: {
   loginRequired?: boolean;
 }[] = [
   { value: "all", label: "all" },
-  { value: "0", label: "short" },
-  { value: "1", label: "medium" },
-  { value: "2", label: "long" },
-  { value: "3", label: "thicc" },
+  ...Object.entries(groupToDesc).map(([key, objectValue]) => ({
+    value: key,
+    label: objectValue,
+  })),
   { value: "-3", label: "favorite", loginRequired: true },
   { value: "-2", label: "search" },
 ] as const;

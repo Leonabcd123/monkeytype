@@ -28,12 +28,15 @@ const defaultQuoteCollection: QuoteCollection = {
   groups: [],
 };
 
+export const groupToDesc: Record<number, QuoteLength> = {
+  0: "short",
+  1: "medium",
+  2: "long",
+  3: "thicc",
+} as const;
+
 function getLengthDesc(quote: Quote): QuoteLength | "-" {
-  if (quote.group === 0) return "short";
-  if (quote.group === 1) return "medium";
-  if (quote.group === 2) return "long";
-  if (quote.group === 3) return "thicc";
-  return "-";
+  return groupToDesc[quote.group] ?? "-";
 }
 
 class QuotesController {
