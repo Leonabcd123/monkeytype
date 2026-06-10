@@ -27,6 +27,7 @@ import {
   showNoticeNotification,
   showErrorNotification,
 } from "../../states/notifications";
+import { getLengthDesc } from "../../states/quote-rate";
 import { showQuoteReportModal } from "../../states/quote-report";
 import { showSimpleModal } from "../../states/simple-modal";
 import * as TestLogic from "../../test/test-logic";
@@ -90,13 +91,6 @@ function exactSearch(quotes: Quote[], captured: RegExp[]): [Quote[], string[]] {
   }
 
   return [matches, Array.from(exactSearchQueryTerms)];
-}
-
-function getLengthDesc(quote: Quote): string {
-  if (quote.length < 101) return "short";
-  if (quote.length < 301) return "medium";
-  if (quote.length < 601) return "long";
-  return "thicc";
 }
 
 function Item(props: {

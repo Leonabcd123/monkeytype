@@ -16,6 +16,7 @@ import {
   getQuoteStats,
   updateQuoteStats,
   getRatingAverage,
+  getLengthDesc,
 } from "../../states/quote-rate";
 import { cn } from "../../utils/cn";
 import { qs } from "../../utils/dom";
@@ -27,16 +28,6 @@ import { Separator } from "../common/Separator";
 export function QuoteRateModal(): JSXElement {
   const [rating, setRating] = createSignal(0);
   const [hoverRating, setHoverRating] = createSignal(0);
-
-  const getLengthDesc = (): string => {
-    const quote = selectedQuote();
-    if (!quote) return "-";
-    if (quote.group === 0) return "short";
-    if (quote.group === 1) return "medium";
-    if (quote.group === 2) return "long";
-    if (quote.group === 3) return "thicc";
-    return "-";
-  };
 
   const displayRating = (): number => hoverRating() || rating();
 
