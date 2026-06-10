@@ -6,7 +6,7 @@ import * as DB from "../db";
 import Ape from "../ape";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import { Language } from "@monkeytype/schemas/languages";
-import { QuoteData } from "@monkeytype/schemas/quotes";
+import { QuoteData, QuoteLength } from "@monkeytype/schemas/quotes";
 import {
   Quote as QuoteType,
   QuoteWithTextSplit as QuoteWithTextSplitType,
@@ -27,6 +27,14 @@ const defaultQuoteCollection: QuoteCollection = {
   language: null,
   groups: [],
 };
+
+function getLengthDesc(quote: Quote): QuoteLength | "-" {
+  if (quote.group === 0) return "short";
+  if (quote.group === 1) return "medium";
+  if (quote.group === 2) return "long";
+  if (quote.group === 3) return "thicc";
+  return "-";
+}
 
 class QuotesController {
   private quoteCollection: QuoteCollection = defaultQuoteCollection;
@@ -77,6 +85,7 @@ class QuotesController {
           id: quote.id,
           language: data.language,
           group: 0,
+          groupDescription: "-",
         };
 
         this.quoteCollection.quotes.push(monkeyTypeQuote);
@@ -90,6 +99,7 @@ class QuotesController {
           this.quoteCollection.quotes.filter((quote) => {
             if (quote.length >= lower && quote.length <= upper) {
               quote.group = groupIndex;
+              quote.groupDescription = getLengthDesc(quote);
               return true;
             }
             return false;

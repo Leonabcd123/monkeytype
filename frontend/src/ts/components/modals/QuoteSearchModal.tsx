@@ -27,7 +27,6 @@ import {
   showNoticeNotification,
   showErrorNotification,
 } from "../../states/notifications";
-import { getLengthDesc } from "../../states/quote-rate";
 import { showQuoteReportModal } from "../../states/quote-report";
 import { showSimpleModal } from "../../states/simple-modal";
 import * as TestLogic from "../../test/test-logic";
@@ -140,7 +139,7 @@ function Item(props: {
         </div>
         <div class="text-xs text-sub">
           <div class="opacity-50">length</div>
-          {getLengthDesc(props.quote)}
+          {props.quote.groupDescription}
         </div>
         <div class="col-span-2 flex sm:col-span-1">
           <div class="grow text-xs text-sub">

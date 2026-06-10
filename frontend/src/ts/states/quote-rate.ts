@@ -5,7 +5,6 @@ import { Quote } from "../controllers/quotes-controller";
 import { showErrorNotification } from "./notifications";
 import { showModal } from "./modals";
 import { isSafeNumber } from "@monkeytype/util/numbers";
-import { QuoteLength } from "@monkeytype/schemas/quotes";
 
 type QuoteStats = {
   average?: number;
@@ -74,13 +73,4 @@ export function updateQuoteStats(stats: QuoteStats): void {
 export function showQuoteRateModal(quote: Quote): void {
   setSelectedQuote(quote);
   showModal("QuoteRate");
-}
-
-export function getLengthDesc(quote: Quote | null): QuoteLength | "-" {
-  if (!quote) return "-";
-  if (quote.group === 0) return "short";
-  if (quote.group === 1) return "medium";
-  if (quote.group === 2) return "long";
-  if (quote.group === 3) return "thicc";
-  return "-";
 }

@@ -16,7 +16,6 @@ import {
   getQuoteStats,
   updateQuoteStats,
   getRatingAverage,
-  getLengthDesc,
 } from "../../states/quote-rate";
 import { cn } from "../../utils/cn";
 import { qs } from "../../utils/dom";
@@ -143,7 +142,7 @@ export function QuoteRateModal(): JSXElement {
           </div>
           <div class="text-xs text-sub">
             <div class="text-sub opacity-50">length</div>
-            {getLengthDesc(selectedQuote())}
+            {selectedQuote()?.groupDescription ?? "-"}
           </div>
           <div class="text-xs text-sub">
             <div class="text-sub opacity-50">source</div>
