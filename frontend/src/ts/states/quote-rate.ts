@@ -76,8 +76,7 @@ export function showQuoteRateModal(quote: Quote): void {
   showModal("QuoteRate");
 }
 
-export function getLengthDesc(quoteToCheck?: Quote): QuoteLength | "-" {
-  const quote = quoteToCheck ?? selectedQuote();
+export function getLengthDesc(quote: Quote | null): QuoteLength | "-" {
   if (!quote) return "-";
   if (quote.group === 0) return "short";
   if (quote.group === 1) return "medium";

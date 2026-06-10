@@ -143,7 +143,7 @@ export function QuoteRateModal(): JSXElement {
           </div>
           <div class="text-xs text-sub">
             <div class="text-sub opacity-50">length</div>
-            {getLengthDesc()}
+            {getLengthDesc(selectedQuote())}
           </div>
           <div class="text-xs text-sub">
             <div class="text-sub opacity-50">source</div>
