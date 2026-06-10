@@ -9,6 +9,15 @@ export const QuoteIdSchema = z
   .or(z.string().regex(/^\d+$/).transform(Number));
 export type QuoteId = z.infer<typeof QuoteIdSchema>;
 
+export const QuoteLengthSchema = z.union([
+  z.literal("short"),
+  z.literal("medium"),
+  z.literal("long"),
+  z.literal("thicc"),
+]);
+
+export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
+
 export const ApproveQuoteSchema = z.object({
   id: QuoteIdSchema,
   text: z.string(),
