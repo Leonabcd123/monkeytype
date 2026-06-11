@@ -33,7 +33,7 @@ const quoteLengths: {
   })),
   { value: "-3", label: "favorite", loginRequired: true },
   { value: "-2", label: "search" },
-] as const;
+];
 
 function MCButton(props: {
   text: string;
