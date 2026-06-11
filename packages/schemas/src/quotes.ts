@@ -25,6 +25,11 @@ export const QuoteLengthSchema = z.enum(QuoteLengthKeysSchema);
 
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
 
+export const groupToDesc = Object.entries(descToGroup).map(([key, value]) => [
+  value,
+  key,
+]) as unknown as Record<number, QuoteLength>;
+
 export const ApproveQuoteSchema = z.object({
   id: QuoteIdSchema,
   text: z.string(),

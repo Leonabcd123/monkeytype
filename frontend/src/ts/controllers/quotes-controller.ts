@@ -6,12 +6,15 @@ import * as DB from "../db";
 import Ape from "../ape";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import { Language } from "@monkeytype/schemas/languages";
-import { QuoteData, QuoteLength } from "@monkeytype/schemas/quotes";
+import {
+  QuoteData,
+  QuoteLength,
+  groupToDesc,
+} from "@monkeytype/schemas/quotes";
 import {
   Quote as QuoteType,
   QuoteWithTextSplit as QuoteWithTextSplitType,
 } from "../types/quotes";
-import { groupToDesc } from "../utils/misc";
 
 export type Quote = QuoteType;
 export type QuoteWithTextSplit = QuoteWithTextSplitType;

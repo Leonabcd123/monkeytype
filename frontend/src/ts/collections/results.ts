@@ -1,6 +1,7 @@
 import { ResultMinified } from "@monkeytype/schemas/results";
 import { Difficulty, Mode, Mode2 } from "@monkeytype/schemas/shared";
 import { ResultFilters } from "@monkeytype/schemas/users";
+import { descToGroup } from "@monkeytype/schemas/quotes";
 import { queryCollectionOptions } from "@tanstack/query-db-collection";
 import {
   avg,
@@ -38,7 +39,7 @@ import {
 } from "./tags";
 import { applyIdWorkaround } from "./utils/misc";
 import { getConfig } from "../config/store";
-import { getMode2, descToGroup } from "../utils/misc";
+import { getMode2 } from "../utils/misc";
 import { getCurrentQuote } from "../states/test";
 
 export type ResultsQueryState = {
