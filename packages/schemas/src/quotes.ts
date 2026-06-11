@@ -18,9 +18,7 @@ export const descToGroup = {
 
 export const quoteLengthKeys = Object.keys(descToGroup) as [
   keyof typeof descToGroup,
-  ...string[],
 ];
-
 export const QuoteLengthSchema = z.enum(quoteLengthKeys);
 
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
