@@ -23,7 +23,7 @@ export const QuoteLengthSchema = z.enum(
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
 
 export const quoteGroupToDesc = Object.entries(quoteDescToGroup).map(
-  ([key, value]) => [value, key],
+  ([desc, group]) => [group, desc],
 ) as unknown as Record<number, QuoteLength>;
 
 export const ApproveQuoteSchema = z.object({
