@@ -27,9 +27,9 @@ const quoteLengths: {
   loginRequired?: boolean;
 }[] = [
   { value: "all", label: "all" },
-  ...Object.entries(quoteGroupToDesc).map(([key, objectValue]) => ({
-    value: key,
-    label: objectValue,
+  ...Object.entries(quoteGroupToDesc).map(([group, desc]) => ({
+    value: group,
+    label: desc,
   })),
   { value: "-3", label: "favorite", loginRequired: true },
   { value: "-2", label: "search" },
