@@ -9,7 +9,7 @@ export const QuoteIdSchema = z
   .or(z.string().regex(/^\d+$/).transform(Number));
 export type QuoteId = z.infer<typeof QuoteIdSchema>;
 
-export const descToGroup = {
+export const quoteDescToGroup = {
   short: 0,
   medium: 1,
   long: 2,
@@ -17,15 +17,14 @@ export const descToGroup = {
 } as const;
 
 export const QuoteLengthSchema = z.enum(
-  Object.keys(descToGroup) as [keyof typeof descToGroup],
+  Object.keys(quoteDescToGroup) as [keyof typeof quoteDescToGroup],
 );
 
 export type QuoteLength = z.infer<typeof QuoteLengthSchema>;
 
-export const groupToDesc = Object.entries(descToGroup).map(([key, value]) => [
-  value,
-  key,
-]) as unknown as Record<number, QuoteLength>;
+export const quoteGroupToDesc = Object.entries(quoteDescToGroup).map(
+  ([key, value]) => [value, key],
+) as unknown as Record<number, QuoteLength>;
 
 export const ApproveQuoteSchema = z.object({
   id: QuoteIdSchema,

@@ -9,7 +9,7 @@ import { Language } from "@monkeytype/schemas/languages";
 import {
   QuoteData,
   QuoteLength,
-  groupToDesc,
+  quoteGroupToDesc,
 } from "@monkeytype/schemas/quotes";
 import {
   Quote as QuoteType,
@@ -33,7 +33,7 @@ const defaultQuoteCollection: QuoteCollection = {
 };
 
 function getLengthDesc(quote: Quote): QuoteLength | "-" {
-  return groupToDesc[quote.group] ?? "-";
+  return quoteGroupToDesc[quote.group] ?? "-";
 }
 
 class QuotesController {

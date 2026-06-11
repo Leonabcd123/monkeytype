@@ -4,7 +4,7 @@ import type {
 } from "@monkeytype/schemas/configs";
 import type { Mode } from "@monkeytype/schemas/shared";
 
-import { groupToDesc } from "@monkeytype/schemas/quotes";
+import { quoteGroupToDesc } from "@monkeytype/schemas/quotes";
 import { For, JSXElement, Show } from "solid-js";
 
 import { setConfig, setQuoteLengthAll } from "../../config/setters";
@@ -27,7 +27,7 @@ const quoteLengths: {
   loginRequired?: boolean;
 }[] = [
   { value: "all", label: "all" },
-  ...Object.entries(groupToDesc).map(([key, objectValue]) => ({
+  ...Object.entries(quoteGroupToDesc).map(([key, objectValue]) => ({
     value: key,
     label: objectValue,
   })),
