@@ -1,4 +1,4 @@
-import { quoteDescToGroup, QuoteLength } from "@monkeytype/schemas/quotes";
+import { lengthDescToGroup, QuoteLength } from "@monkeytype/schemas/quotes";
 import { ComponentProps, For, JSXElement, Show } from "solid-js";
 
 import { configMetadata } from "../../../config/metadata";
@@ -314,15 +314,17 @@ function Mode2Quote(props: ComponentProps<"div">): JSXElement {
           restartTestEvent.dispatch();
         }}
       />
-      <For each={Object.keys(quoteDescToGroup)}>
+      <For each={Object.keys(lengthDescToGroup)}>
         {(desc) => (
           <TCButton
             text={desc}
             active={areUnsortedArraysEqual(getConfig.quoteLength, [
-              quoteDescToGroup[desc as QuoteLength],
+              lengthDescToGroup[desc as QuoteLength],
             ])}
             onClick={() => {
-              setConfig("quoteLength", [quoteDescToGroup[desc as QuoteLength]]);
+              setConfig("quoteLength", [
+                lengthDescToGroup[desc as QuoteLength],
+              ]);
               restartTestEvent.dispatch();
             }}
           />
