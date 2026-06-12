@@ -367,7 +367,7 @@ export function QuoteSearchModal(): JSXElement {
             setCustomFilterMin(min);
             setCustomFilterMax(max);
             setHasCustomFilter(true);
-            return { status: "success", message: "Saved custom filter" };
+            return { status: "success", showNotification: false };
           },
         });
       }
