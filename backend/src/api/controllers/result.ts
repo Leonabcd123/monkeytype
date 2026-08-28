@@ -23,8 +23,10 @@ import {
   incrementDailyLeaderboard,
 } from "../../utils/prometheus";
 import GeorgeQueue from "../../queues/george-queue";
-import { getDailyLeaderboard } from "../../utils/daily-leaderboards";
-import AutoRoleList from "../../constants/auto-roles";
+import {
+  getDailyLeaderboard,
+  purgeUserFromDailyLeaderboards,
+} from "../../utils/daily-leaderboards";
 import * as UserDAL from "../../dal/user";
 import { buildMonkeyMail } from "../../utils/monkey-mail";
 import * as WeeklyXpLeaderboard from "../../services/weekly-xp-leaderboard";
@@ -64,6 +66,7 @@ import { MonkeyRequest } from "../types";
 import { getFunbox, checkCompatibility } from "@monkeytype/funbox";
 import { tryCatch } from "@monkeytype/util/trycatch";
 import { getCachedConfiguration } from "../../init/configuration";
+import { getChallenges } from "@monkeytype/challenges";
 
 try {
   if (!anticheatImplemented()) throw new Error("undefined");
@@ -80,6 +83,12 @@ try {
     process.exit(1);
   }
 }
+
+const autoRoleChallengeNames = new Set(
+  getChallenges()
+    .filter((it) => it.settings?.autoRole)
+    .map((it) => it.name),
+);
 
 export async function getResults(
   req: MonkeyRequest<GetResultsQuery>,
@@ -380,11 +389,21 @@ export async function addResult(
               subject: "Banned",
               body: "Your account has been automatically banned for triggering the anticheat system. If you believe this is a mistake, please contact support.",
             });
-            await UserDAL.addToInbox(
-              uid,
-              [mail],
-              req.ctx.configuration.users.inbox,
-            );
+            await Promise.all([
+              UserDAL.addToInbox(
+                uid,
+                [mail],
+                req.ctx.configuration.users.inbox,
+              ),
+              purgeUserFromDailyLeaderboards(
+                uid,
+                req.ctx.configuration.dailyLeaderboards,
+              ),
+              WeeklyXpLeaderboard.purgeUserFromXpLeaderboards(
+                uid,
+                req.ctx.configuration.leaderboards.weeklyXp,
+              ),
+            ]);
             user.banned = true;
           }
         }
@@ -459,7 +478,7 @@ export async function addResult(
   if (
     completedEvent.challenge !== null &&
     completedEvent.challenge !== undefined &&
-    AutoRoleList.includes(completedEvent.challenge) &&
+    autoRoleChallengeNames.has(completedEvent.challenge) &&
     user.discordId !== undefined &&
     user.discordId !== ""
   ) {

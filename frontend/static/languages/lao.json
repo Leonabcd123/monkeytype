@@ -1,9 +1,10 @@
 {
   "name": "lao",
   "rightToLeft": false,
-  "ligatures": false,
+  "joiningScript": false,
   "orderedByFrequency": false,
   "bcp47": "lo",
+  "preferredFont": "Noto_Sans_Lao",
   "words": [
     "ຂ້ອຍ",
     "ເຈົ້າ",

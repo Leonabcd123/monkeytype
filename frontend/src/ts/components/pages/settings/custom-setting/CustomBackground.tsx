@@ -5,7 +5,10 @@ import {
 import { createForm } from "@tanstack/solid-form";
 import { createResource, JSXElement, For, Show } from "solid-js";
 
-import { configMetadata } from "../../../../config/metadata";
+import {
+  configMetadata,
+  getOptionSearchKeywords,
+} from "../../../../config/metadata";
 import { setConfig } from "../../../../config/setters";
 import { getConfig } from "../../../../config/store";
 import { applyCustomBackground } from "../../../../controllers/theme-controller";
@@ -18,7 +21,7 @@ import { Fa } from "../../../common/Fa";
 import { Separator } from "../../../common/Separator";
 import { InputField } from "../../../ui/form/InputField";
 import { fromSchema } from "../../../ui/form/utils";
-import { Setting } from "../Setting";
+import { SearchableSetting } from "../SearchableSetting";
 
 export function CustomBackground(): JSXElement {
   const savedIndicator = useSavedIndicator();
@@ -50,12 +53,13 @@ export function CustomBackground(): JSXElement {
   };
 
   return (
-    <Setting
+    <SearchableSetting
       key="customBackground"
       title={
         configMetadata.customBackground.displayString ?? "custom background"
       }
       fa={configMetadata.customBackground.fa}
+      extraSearchKeywords={getOptionSearchKeywords("customBackgroundSize")}
       description={
         <>
           {configMetadata.customBackground.description}
@@ -93,7 +97,7 @@ export function CustomBackground(): JSXElement {
                 accept="image/*"
                 class="hidden"
                 onChange={async (e) => {
-                  const fileInput = e.target as HTMLInputElement;
+                  const fileInput = e.target;
                   const file = fileInput.files?.[0];
 
                   if (!file) {
@@ -138,12 +142,7 @@ export function CustomBackground(): JSXElement {
               <form.Field
                 name="customBackground"
                 validators={{
-                  onChange: ({ value }) => {
-                    const val = value;
-                    return fromSchema(CustomBackgroundSchema)({
-                      value: val,
-                    });
-                  },
+                  onChange: fromSchema(CustomBackgroundSchema),
                   onBlur: () => {
                     void form.handleSubmit();
                   },
@@ -170,7 +169,7 @@ export function CustomBackground(): JSXElement {
                   { displayString?: string }
                 >;
                 const displayString =
-                  optionMeta?.[String(option)]?.displayString ?? String(option);
+                  optionMeta?.[option]?.displayString ?? option;
                 return (
                   <Button
                     active={getConfig.customBackgroundSize === option}
